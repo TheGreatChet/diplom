@@ -1,0 +1,5 @@
+SELECT [ModelId]
+      ,[Name]
+      ,[LogoImage]
+      ,[CountryName]
+FROM [dbo].[CarModel]

@@ -1,13 +1,13 @@
 const utils = require('../utils');
 const cfg = require('../../config');
 const sql = require('mssql');
-const {config} = require('dotenv');
+const { config } = require('dotenv');
 
-const getAccounts = async () => {
+const getTaskList = async () => {
     try {
         let pool = await sql.connect(cfg.sql);
-        const sqlQueries = await utils.loadSqlQueries('accounts')
-        const list = await pool.request().query(sqlQueries.accountsList);
+        const sqlQueries = await utils.loadSqlQueries('list')
+        const list = await pool.request().query(sqlQueries.listList);
         return list.recordset;
     } catch (error) {
         return error.message;
@@ -15,5 +15,5 @@ const getAccounts = async () => {
 }
 
 module.exports = {
-    getAccounts
+    getTaskList
 }

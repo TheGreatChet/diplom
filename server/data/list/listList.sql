@@ -1,0 +1,5 @@
+SELECT [TaskListId]
+      ,[TaskId]
+      ,[EmployeeId]
+      ,[ClientId]
+FROM [dbo].[TaskList]
