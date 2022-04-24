@@ -1,24 +1,10 @@
-import React from 'react';
-import { Container } from 'react-dom';
-import AccountList from './components/accountList';
+import React from "react";
+import AppRouter from "./components/AppRouter";
 
 function App() {
-
-  const [items, setItems] = React.useState([]);
-
-  React.useEffect(() => {
-    fetch('http://localhost:8081/api/accounts/').then((res) => {
-      return res.json();
-    }).then((json) => {
-      setItems(json);
-    });
-  }, []);
-
   return (
-    <div className="App">
-      <AccountList items={items}/>
-    </div>
-  )
+    <AppRouter />
+  );
 }
 
 export default App;
