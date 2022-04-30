@@ -1,9 +1,9 @@
-import { AuthPage } from './pages/AuthPage'
-import { MainPage } from './pages/MainPage'
-import { RegistrationPage } from './pages/RegistrationPage'
+import { AuthPage } from './components/pages/AuthPage'
+import { MainPage } from './components/pages/MainPage'
+import { RegistrationPage } from './components/pages/RegistrationPage'
 import { AUTH_ROUTE, REG_ROUTE, MAIN_ROUTE } from './utils/consts'
 
-export const routes = [
+export const PublicRoutes = [
     {
         Component: <AuthPage />,
         path: AUTH_ROUTE
@@ -15,5 +15,26 @@ export const routes = [
     {
         Component: <RegistrationPage />,
         path: REG_ROUTE
+    }
+];
+
+export const ClientRoutes = [
+    {
+        Component: <MainPage />,
+        path: MAIN_ROUTE
+    }
+];
+
+export const WorkerRoutes = [
+    {
+        Component: <MainPage />,
+        path: MAIN_ROUTE
+    }
+];
+
+export const AdminRoutes = [
+    {
+        Component: <MainPage />,
+        path: MAIN_ROUTE
     }
 ];

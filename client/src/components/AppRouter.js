@@ -1,12 +1,12 @@
 import React from "react";
 import { Navigate, Route, Routes, BrowserRouter } from "react-router-dom";
-import { routes } from "../routes"
+import { PublicRoutes } from "../routes"
 
 const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {routes.map(({ path, Component }) =>
+                {PublicRoutes.map(({ path, Component }) =>
                     <Route key={path} path={path} element={Component} />
                 )}
             </Routes>

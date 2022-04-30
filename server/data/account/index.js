@@ -58,9 +58,21 @@ const updateAccount = async (accountId, accountData) => {
     }
 }
 
+const getByLogin = async (login) => {
+    try {
+        let pool = await sql.connect(cfg.sql);
+        const sqlQueries = await utils.loadSqlQueries('account')
+        const account = await pool.request().input('login', sql.NVarChar(20), login).query(sqlQueries.accountByLogin);
+        return account.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
     getAccounts,
     getById,
     createAccount,
-    updateAccount
+    updateAccount,
+    getByLogin
 }

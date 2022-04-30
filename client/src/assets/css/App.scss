@@ -1,0 +1,21 @@
+@import "./vars.scss";
+
+//Fonts
+@font-face {
+    font-family: "main";
+    src: local("Rubik-Light.ttf"),
+        url("../fonts/Rubik-Light.ttf") format("truetype");
+    font-weight: light;
+}
+
+body {
+    margin: 0;
+    font-family: "main";
+    background-color: whitesmoke;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}

@@ -1,4 +1,5 @@
 const accountData = require('../data/account');
+const bcrypt = require('bcryptjs')
 
 const getAccounts = async (req, res, next) => {
     try {
@@ -16,6 +17,16 @@ const getById = async (req, res, next) => {
         res.send(account);
     } catch (error) {
         res.status(400).send(error.message);
+    }
+}
+
+const getByLogin = async (req, res, next) => {
+    try {
+        const login = req.params.login;
+        const account = await accountData.getByLogin(login);
+        res.send(account);
+    } catch (error) {
+        console.log(error.message)
     }
 }
 
@@ -40,9 +51,11 @@ const updateAccount = async (req, res, next) => {
     }
 }
 
+
 module.exports = {
     getAccounts,
     getById,
     addAccount,
-    updateAccount
+    updateAccount,
+    getByLogin
 }
