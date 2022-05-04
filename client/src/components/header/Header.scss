@@ -1,21 +1,5 @@
-@import "../../assets/css/vars.scss";
-
-//Fonts
-@font-face {
-    font-family: "main";
-    src: local("Rubik-Light.ttf"),
-        url("../../assets/fonts/Rubik-Light.ttf") format("truetype");
-    font-weight: light;
-}
-
-*,
-*::after,
-*::before {
-    box-sizing: border-box;
-}
-
 .header {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
     height: 75px;
     text-align: center;
     color: white;
@@ -30,7 +14,7 @@
 }
 
 
-.vertical-center {
+.header-vertical-center {
     display: flex;
     flex-direction: row;
     align-items: center;
