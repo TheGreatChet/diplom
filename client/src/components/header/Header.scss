@@ -1,47 +1,124 @@
 .header {
-    background-color: rgba(255, 255, 255, 0.95);
-    height: 75px;
-    text-align: center;
-    color: white;
-    font-size: 30px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin: 0;
-    width: 100%;
-    z-index: 100000;
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.95);
+  height: 75px;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-column: 70% 30%;
 }
 
-
 .header-vertical-center {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 80px;
 }
 
 .logo-image {
-    width: 45px;
-    height: 45px;
+  width: 45px;
+  height: 45px;
 }
 
 p {
-    font-size: 24px;
-    margin-left: 10px;
-    color: var(--color-gray);
+  font-size: 24px;
+  margin-left: 10px;
+  color: var(--color-gray);
 }
 
 .logo-text {
-    width: 130px;
-    height: 55px;
+  width: 130px;
+  height: 55px;
 }
 
 .divider {
-    display: flex;
-    flex-direction: row;
-    border-left: 3px solid var(--color-gray);
-    height: 35px;
-    margin-right: 15px;
-    margin-left: 15px;
+  display: flex;
+  flex-direction: row;
+  border-left: 3px solid var(--color-gray);
+  height: 35px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.auth-btn-div {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-self: flex-end;
+  align-items: center;
+  justify-content: right;
+  padding-right: 5%;
+  grid-column-start: 2;
+}
+
+.btn-list-icon {
+  background: transparent;
+  border: none;
+  display: none;
+  grid-column-start: 2;
+  position: absolute;
+  justify-self: right;
+  align-self: center;
+  cursor: pointer;
+  padding-right: 5%;
+  margin-right: 15px;
+  color: black;
+}
+
+.form-login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 700px) {
+  .header {
+    height: 50px;
+  }
+
+  .header-vertical-center {
+    justify-content: left;
+    margin-left: 20px;
+  }
+
+  .logo-image {
+    height: 20px;
+    width: 20px;
+  }
+
+  .logo-text {
+    width: 80px;
+    height: 25px;
+  }
+
+  .divider {
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  .auth-btn-div {
+    grid-template-rows: 50% 50%;
+    grid-template-columns: none;
+    align-items: center;
+    width: 100%;
+    padding-right: 0;
+    grid-column-start: auto;
+    justify-content: center;
+    padding: 10px;
+    background-color: rgba($color: black, $alpha: 0.5);
+  }
+
+  .btn-list-icon {
+    display: inline;
+  }
 }
