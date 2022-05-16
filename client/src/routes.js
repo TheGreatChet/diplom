@@ -1,16 +1,22 @@
 import { MainPage } from './components/pages/main/MainPage'
-import { MAIN_ROUTE } from './utils/consts'
+import { MAIN_ROUTE, REG_ROUTE } from './utils/consts'
+import { RegPage } from './components/pages/registration/RegPage'
+import { ListPage } from './components/pages/list/ListPage'
 
 export const PublicRoutes = [
     {
         Component: <MainPage />,
         path: MAIN_ROUTE
+    },
+    {
+        Component: <RegPage />,
+        path: REG_ROUTE
     }
 ];
 
 export const ClientRoutes = [
     {
-        Component: <MainPage />,
+        Component: <ListPage />,
         path: MAIN_ROUTE
     }
 ];

@@ -27,9 +27,16 @@ export const MainPage = () => {
         <div className="pic" id="pic1" />
 
         <div className="about-text">
-
+          <h2>О нас</h2>
+          <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem accusantium laboriosam inventore quasi repudiandae.
+             Libero officia ut doloribus eos, tempore voluptatibus nisi fuga eveniet quos explicabo dolores autem, provident corrupti.</h4>
         </div>
       </section>
+
+      <section className="cars">
+        
+      </section>
+      
     </div>
   );
 }

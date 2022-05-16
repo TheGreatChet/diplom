@@ -1,21 +1,20 @@
 import './Footer.scss';
 import React from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import logo from '../../assets/images/main-icon.svg'
-import logo_text from '../../assets/images/logo-text.svg';
 import { Instagram } from 'react-bootstrap-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarker } from "@fortawesome/free-solid-svg-icons";
+import {REG_ROUTE, MAIN_ROUTE} from '../../utils/consts';
+
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <footer className="footer">
       <div className="footer-col1">
-        <div className="footer-col1-row1">
-          <img className="footer-logo-image" src={logo} alt="Логотип" />
-
-          <img className="footer-logo-text" src={logo_text} alt="АвтоМир" />
-        </div>
-
+        <img className="footer-logo-image" src={logo} alt="Логотип" />
         <div className="footer-col1-row2">
           <a className="link" href="https://yandex.ru/maps/-/CCUFJ2GfcD" rel='noreferrer' target="_blank">
             Сервис на карте
@@ -26,7 +25,7 @@ const Footer = () => {
 
       <div className="footer-col2">
         <h4>Меню</h4>
-        <h5>Главная</h5>
+        <h5 style={{cursor: 'pointer'}}>Главная</h5>
         <h5>Авторизация</h5>
         <h5>Поиск</h5>
       </div>

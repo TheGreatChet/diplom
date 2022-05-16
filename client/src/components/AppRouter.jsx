@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { PublicRoutes } from "../routes"
+import { ClientRoutes, PublicRoutes } from "../routes";
 
-const AppRouter = () => {
+const AppRouter = (isAuth) => {
+
+  if (isAuth.isAuth) {
     return (
-        <BrowserRouter>
-            <Routes>
-                {PublicRoutes.map(({ path, Component }) =>
-                    <Route key={path} path={path} element={Component} />
-                )}
-            </Routes>
-        </BrowserRouter>
-    )
-}
+      <Routes>
+        {ClientRoutes.map(({ path, Component }) => (
+          <Route key={path} path={path} element={Component} />
+        ))}
+      </Routes>
+    );
+  }
+
+  return (
+    <Routes>
+      {PublicRoutes.map(({ path, Component }) => (
+        <Route key={path} path={path} element={Component} />
+      ))}
+    </Routes>
+  );
+};
 
 export default AppRouter;

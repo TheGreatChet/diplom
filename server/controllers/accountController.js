@@ -1,5 +1,6 @@
 const accountData = require('../data/account');
-const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const {SECRET} = process.env;
 
 const getAccounts = async (req, res, next) => {
     try {
@@ -51,11 +52,38 @@ const updateAccount = async (req, res, next) => {
     }
 }
 
+const generateAccessToken = (id, role) => {
+    const payload = {
+        id,
+        role
+    }
+    return jwt.sign(payload, SECRET, {expiresIn: "24h"})
+}
+
+const login = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await accountData.getByLogin(username);
+        if (!user[0]) {
+            return res.status(400).json({message: 'Пользователь с таким логином не найден'})
+        }
+        if (user[0]['Password'] != password) {
+            return res.status(400).json({message: 'Неправильный пароль'})
+        }
+        
+        const token = generateAccessToken(user[0]['AccountId'], user[0]['RoleId'])
+        res.json({token: token});
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 
 module.exports = {
     getAccounts,
     getById,
     addAccount,
     updateAccount,
-    getByLogin
+    getByLogin,
+    login
 }
