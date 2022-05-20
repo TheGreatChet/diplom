@@ -63,6 +63,7 @@ const getByLogin = async (login) => {
         let pool = await sql.connect(cfg.sql);
         const sqlQueries = await utils.loadSqlQueries('account')
         const account = await pool.request().input('login', sql.NVarChar(20), login).query(sqlQueries.accountByLogin);
+        console.log(account)
         return account.recordset;
     } catch (error) {
         return error.message;

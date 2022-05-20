@@ -1,0 +1,28 @@
+.list-container {
+  display: grid;
+  grid-template-columns: 25% auto;
+  background-color: var(--color-background);
+}
+
+.list-sidebar {
+  height: 600px;
+  grid-column-start: 1;
+}
+
+.empty {
+  position: absolute;
+  align-self: center;
+  justify-self: center;
+}
+
+@media only screen and (max-width: 700px) {
+  .list-container {
+    grid-template-columns: none;
+    grid-template-rows: 150px auto;
+  }
+
+  .list-sidebar {
+    grid-row-start: 1;
+  }
+}
+

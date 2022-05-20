@@ -19,6 +19,16 @@ const getById = async (req, res, next) => {
     }
 }
 
+const getByDescr = async (req, res, next) => {
+    try {
+        const descr = req.params.descryption;
+        const task = await taskData.getByDescr(descr);
+        res.send(task);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addTask = async (req, res, next) => {
     try {
         const data = req.body;
@@ -55,5 +65,6 @@ module.exports = {
     getById,
     addTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    getByDescr
 }

@@ -8,7 +8,7 @@ INSERT INTO [dbo].[Task] (
 )
 VALUES (
     @title,
-    @descrption,
+    @descryption,
     @statusId,
     @carId,
     @typeId,

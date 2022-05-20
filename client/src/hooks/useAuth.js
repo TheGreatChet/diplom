@@ -1,18 +1,15 @@
-import { useCallback, useState, useEffect } from "react"
+import { useCallback, useEffect } from "react"
 
 export const useAuth = () => {
-    const [token, setToken] = useState(null)
-
     const login = useCallback((jwt) => {
-        setToken(jwt)
         localStorage.setItem('userData', JSON.stringify({
             token: jwt
         }))
+
+        console.log(jwt);
     }, [])
 
     const logout = useCallback(() => {
-        setToken(null)
-
         localStorage.removeItem('userData')
     }, [])
 

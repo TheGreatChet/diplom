@@ -25,6 +25,17 @@ const getById = async (taskId) => {
     }
 }
 
+const getByDescr = async (descr) => {
+    try {
+        let pool = await sql.connect(cfg.sql);
+        const sqlQueries = await utils.loadSqlQueries('task')
+        const task = await pool.request().input('descryption', sql.NVarChar, descr).query(sqlQueries.taskByDescr);
+        return task.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const createTask = async (taskData) => {
     try {
         let pool = await sql.connect(cfg.sql);
@@ -75,5 +86,6 @@ module.exports = {
     getById,
     createTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    getByDescr
 }

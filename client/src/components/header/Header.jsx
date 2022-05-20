@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useHttp } from "../../hooks/useHttp";
-import { useMessage } from "../../hooks/useMessage";
-import { REG_ROUTE, MAIN_ROUTE } from "../../utils/consts";
+import { REG_ROUTE, MAIN_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { List } from "react-bootstrap-icons";
 import logo from "../../assets/images/main-icon-clean.svg";
 import logo_text from "../../assets/images/logo-text.svg";
@@ -12,6 +11,8 @@ import { MyInput } from "../common/MyInput/MyInput";
 import { AuthContext } from "../../context/AuthContext";
 import "../../assets/fonts/Rubik-Light.ttf";
 import "./Header.scss";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -21,9 +22,8 @@ const Header = () => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const message = useMessage();
   const auth = useContext(AuthContext);
-  const { loading, error, request, clearError } = useHttp();
+  const { error, request, clearError } = useHttp();
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width:1000px)");
@@ -45,22 +45,32 @@ const Header = () => {
 
   const loginHandler = async () => {
     try {
+      if (!login) {
+        toast.error("Заполните поле логина");
+        return;
+      }
+      if (!password) {
+        toast.error("Заполните поле пароля");
+        return;
+      }
       const data = await request("/api/accounts/login", "POST", {
         username: login,
         password: password,
       });
 
       auth.login(data.token);
+      navigate(PROFILE_ROUTE);
     } catch (error) {}
   };
 
   useEffect(() => {
-    message(error);
     clearError();
-  }, [error, message, clearError]);
+  }, [error, clearError]);
 
   return (
     <div>
+      <ToastContainer/>
+
       <header className="header" id="top">
         <div className="header-vertical-center">
           <img

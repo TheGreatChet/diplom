@@ -1,0 +1,19 @@
+.loader {
+  position: absolute;
+  align-self: center;
+  justify-self: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border-top: 8px solid rgba(#01a6aa, 1);
+  border-left: 8px solid rgba(#01a6aa, 1);
+  border-right: 8px solid rgba(#01a6aa, 0);
+
+  animation: spin 0.575s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
