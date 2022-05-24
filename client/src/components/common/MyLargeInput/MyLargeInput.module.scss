@@ -1,13 +1,13 @@
-.myInput {
+.largeInput {
     width: 160px;
     border: 2px solid var(--color-primary);
     border-radius: 5px 5px 5px 5px;
-    height: 35px;
     outline: none;
+    resize: none;
 }
 
 @media only screen and (max-width: 700px) {
-    .myInput {
+    .largeInput {
         width: 250px !important;
     }
 }

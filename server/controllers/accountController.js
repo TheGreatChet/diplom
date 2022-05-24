@@ -72,7 +72,7 @@ const login = async (req, res) => {
         }
         
         const token = generateAccessToken(user[0]['AccountId'], user[0]['RoleId'])
-        res.json({token: token});
+        res.json({token: token, roleId: user[0]['RoleId']});
     } catch (error) {
         res.status(400).send(error.message);
     }

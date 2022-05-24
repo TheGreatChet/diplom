@@ -58,7 +58,7 @@ const Header = () => {
         password: password,
       });
 
-      auth.login(data.token);
+      auth.login(data.token, data.roleId);
       navigate(PROFILE_ROUTE);
     } catch (error) {}
   };
@@ -69,7 +69,7 @@ const Header = () => {
 
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
 
       <header className="header" id="top">
         <div className="header-vertical-center">
@@ -88,7 +88,7 @@ const Header = () => {
           <div className="divider" />
           <p>Поддержка</p>
         </div>
-        {(isNavVisible || !isSmallScreen) && (
+        {(isNavVisible || !isSmallScreen) && !auth.token && (
           <nav className="auth-btn-div">
             <MyButton onClick={() => setIsLoginVisible(true)}>Войти</MyButton>
             <MyButton
@@ -96,6 +96,11 @@ const Header = () => {
               onClick={() => navigate(REG_ROUTE)}>
               Регистрация
             </MyButton>
+          </nav>
+        )}
+        {(isNavVisible || !isSmallScreen) && auth.token && (
+          <nav className="auth-btn-div">
+            <MyButton onClick={() => auth.logout()}>Выйти</MyButton>
           </nav>
         )}
         <button

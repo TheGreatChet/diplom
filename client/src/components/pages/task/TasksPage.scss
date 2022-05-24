@@ -1,0 +1,55 @@
+.tasks {
+  height: 600px;
+  display: grid;
+}
+
+.tasks-body {
+  display: grid;
+  grid-template-rows: 15% auto;
+
+  .tasks-body-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto;
+    padding: 20px;
+  }
+}
+
+.tasks-create-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+
+  .tasks-create-form-label {
+    padding: 5px;
+  }
+
+  .tasks-create-form-content {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .tasks-create-form-file {
+      margin-top: 5px;
+      justify-self: left;
+    }
+
+    .tasks-create-form-label {
+      align-self: center;
+    }
+  }
+}
+
+.tasks-change-status-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+
+  .set-horizontal {
+      display: flex;
+      align-items: center;
+  }
+}

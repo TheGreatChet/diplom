@@ -5,7 +5,7 @@ const authMiddleware = require('../middlewares/authMiddleware')
 const roleMiddleware = require('../middlewares/roleMiddleware')
 const {getAccounts, addAccount, updateAccount, getByLogin, getById, login} = accountController;
 
-router.get('/', roleMiddleware([0]), getAccounts)
+router.get('/', roleMiddleware([1]), getAccounts)
 router.post('/reg', addAccount)
 router.get('/:id', getById)
 router.put('/:id', updateAccount)
