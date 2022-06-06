@@ -7,12 +7,13 @@ const AppRouter = (isAuth) => {
   const auth = useContext(AuthContext);
 
   if (isAuth.isAuth) {
-    if(auth.roleId)
+    if(JSON.parse(localStorage.getItem('userData')).roleId == 1)
     return (
       <Routes>
         {ClientRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={Component} />
         ))}
+        <Route path="*" element={<Navigate to="/profile" replace/>}/>
       </Routes>
 
     );

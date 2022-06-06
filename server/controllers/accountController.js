@@ -1,4 +1,5 @@
 const accountData = require('../data/account');
+const clientData = require('../data/client');
 const jwt = require('jsonwebtoken')
 const {SECRET} = process.env;
 
@@ -16,7 +17,7 @@ const getById = async (req, res, next) => {
         const accountId = req.params.id;
         const account = await accountData.getById(accountId);
         res.send(account);
-    } catch (error) {
+    } catch (error) {   
         res.status(400).send(error.message);
     }
 }
@@ -72,12 +73,11 @@ const login = async (req, res) => {
         }
         
         const token = generateAccessToken(user[0]['AccountId'], user[0]['RoleId'])
-        res.json({token: token, roleId: user[0]['RoleId']});
+        res.json({token: token, roleId: user[0]['RoleId'], accountId: user[0]['AccountId']});
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
-
 
 module.exports = {
     getAccounts,

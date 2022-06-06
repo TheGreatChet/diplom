@@ -11,8 +11,8 @@ const getClients = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
     try {
-        const clientId = req.params.id;
-        const client = await clientData.getById(clientId);
+        const accountId = req.params.id;
+        const client = await clientData.getById(accountId);
         res.send(client);
     } catch (error) {
         res.status(400).send(error.message);

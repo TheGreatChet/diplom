@@ -3,7 +3,6 @@ INSERT INTO [dbo].[Account] (
     [Password],
     [RoleId],
     [RegistrationDate],
-    [Email],
     [ProfileImage]
 )
 VALUES (
@@ -11,6 +10,6 @@ VALUES (
     @password,
     @roleId,
     CURRENT_TIMESTAMP,
-    @email,
     @profileImage
 )
+SELECT max([AccountId]) as "AccountId" FROM [dbo].[Account]

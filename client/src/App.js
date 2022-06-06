@@ -18,8 +18,7 @@ function App() {
     }}>
       <div className="App">
         <Header />
-        {/* <AppRouter isAuth={isAuth}/> */}
-        <ProfilePage/>
+        <AppRouter isAuth={isAuth}/>
         <Footer />
       </div>
     </AuthContext.Provider>

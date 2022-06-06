@@ -55,10 +55,10 @@ const Header = () => {
       }
       const data = await request("/api/accounts/login", "POST", {
         username: login,
-        password: password,
+        password: password
       });
-
-      auth.login(data.token, data.roleId);
+      console.log(data.accountId)
+      auth.login(data.token, data.roleId, data.accountId);
       navigate(PROFILE_ROUTE);
     } catch (error) {}
   };
