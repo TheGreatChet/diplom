@@ -4,6 +4,7 @@ import { useHttp } from "../../../hooks/useHttp";
 import { MyInput } from "../../common/MyInput/MyInput";
 import { MyButton } from "../../common/MyButton/MyButton";
 import { Loader } from "../../common/Loader/Loader"
+import { ToastContainer, toast } from "react-toastify";
 
 export const ProfilePage = () => {
   const { request } = useHttp();
@@ -14,28 +15,45 @@ export const ProfilePage = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [photo, setPhoto] = useState("")
+  const [loading, setLoading] = useState(true);
+
+  const id = JSON.parse(localStorage.getItem("userData")).accountId;
+  const roleId = JSON.parse(localStorage.getItem("userData")).roleId;
 
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   useEffect(() => {
-    getAccountData().then(getClientData());
+    if (roleId == 1) {
+      getAccountData().then(getClientData());
+    } else {
+      getAccountData().then(getEmplData());
+    }
   }, []);
 
   const getAccountData = async () => {
-    await sleep(500);
-    setLogin((await request("/api/accounts/" + JSON.parse(localStorage.getItem("userData")).accountId))[0]["Login"]);
-    setPassword((await request("/api/accounts/" + JSON.parse(localStorage.getItem("userData")).accountId))[0]["Password"]);
-    setPhoto((await request("/api/accounts/" + JSON.parse(localStorage.getItem("userData")).accountId))[0]["ProfileImage"]);
+    setLogin((await request("/api/accounts/" + id))[0]["Login"]);
+    setPassword((await request("/api/accounts/" + id))[0]["Password"]);
+    setPhoto((await request("/api/accounts/" + id))[0]["ProfileImage"]);
   };
 
   const getClientData = async () => {
-    await sleep(500);
-    setName((await request("/api/clients/" + JSON.parse(localStorage.getItem("userData")).accountId))[0]["Name"]);
-    setSurname((await request("/api/clients/" + JSON.parse(localStorage.getItem("userData")).accountId))[0]["Surname"]);
-    setPatr((await request("/api/clients/" + JSON.parse(localStorage.getItem("userData")).accountId))[0]["Patronymic"]);
+    await sleep(100);
+    setName((await request("/api/clients/" + id))[0]["Name"]);
+    setSurname((await request("/api/clients/" + id))[0]["Surname"]);
+    setPatr((await request("/api/clients/" + id))[0]["Patronymic"]);
+    setLoading(false)
   };
+
+  const getEmplData = async () => {
+    await sleep(100);
+    setName((await request("/api/employee/" + id))[0]["Name"]);
+    setSurname((await request("/api/employee/" + id))[0]["Surname"]);
+    setPatr((await request("/api/employee/" + id))[0]["Patronymic"]);
+    setLoading(false)
+  }
+
 
   const getImage = (e) => {
     let file = e.target.files[0];
@@ -45,39 +63,68 @@ export const ProfilePage = () => {
 
     firstReader.readAsText(file);
     secondReader.readAsDataURL(file);
-    
+
 
     secondReader.onload = function () {
-      console.log(secondReader.result.split(',')[1]);
       setPhoto(secondReader.result.split(',')[1])
     };
 
     secondReader.onerror = function () {
-      console.log(secondReader.error);
+      toast.error(secondReader.error);
     };
   };
 
-  const handleSave = async () => {
-    const id = JSON.parse(localStorage.getItem("userData")).accountId;
-
-    const save = await request("/api/accounts/" + id, "PUT", {
+  const saveAcc = async () => {
+    const acc = await request("/api/accounts/" + id, "PUT", {
       login: login,
       password: password,
-      roleId: id,
+      roleId: roleId,
       profileImage: photo
-    });
+    })
+  }
 
-  
+  const saveClient = async () => {
+    if (!patr) setPatr("");
+    const save = await request("/api/clients/" + id, "PUT", {
+      name: name,
+      surname: surname,
+      patronymic: patr
+    });
+  }
+
+  const saveEmpl = async () => {
+    if (!patr) setPatr("");
+    const save = await request("/api/employee/" + id, "PUT", {
+      name: name,
+      surname: surname,
+      patronymic: patr
+    });
+  }
+
+  const handleSave = () => {
+    if (!name || !surname || !login || !password) {
+      toast.error("Заполните все поля!\n(Поле отчества необязательное)");
+      return;
+    }
+
+    if (roleId == 2) {
+      saveAcc().then(saveClient()).then(toast.success("Успешно"));
+    } else {
+      saveAcc().then(saveEmpl()).then(toast.success("Успешно"));
+    }
   }
 
 
-  if (name && password && photo) {
+  if (!loading) {
     return (
       <div>
         <div className="profile">
           <div className="profile-sidebar">
             <div className="profile-sidebar-content">
-              <img className="profile-image" src={`data:image/png;base64,${photo}`} />
+              <img className="profile-image" src={`data:image/png;base64,${photo}`} onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = defaultImg;
+              }} />
               <input className="tasks-create-form-file" type="file" accept=".jpeg, .png, .jpg" onChange={getImage}></input>
             </div>
           </div>
@@ -95,13 +142,11 @@ export const ProfilePage = () => {
                 value={surname}
                 onChange={(e) => setSurname(e.target.value)}
               />
-              <label
-                className="profile-content-label"
+              <label className="profile-content-label">Отчество</label>
+              <MyInput 
+                style={{ width: 250 }}
                 value={patr}
-                onChange={(e) => setPatr(e.target.value)}>
-                Отчество
-              </label>
-              <MyInput style={{ width: 250 }} />
+                onChange={(e) => setPatr(e.target.value)} />
             </div>
             <div className="profile-content-col2">
               <label className="profile-content-label">Почта</label>

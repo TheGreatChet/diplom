@@ -1,9 +1,10 @@
 import { MainPage } from './components/pages/main/MainPage'
-import { MAIN_ROUTE, REG_ROUTE, SEARCH_ROUTE, PROFILE_ROUTE, REGUSER_ROUTE } from './utils/consts'
+import { MAIN_ROUTE, REG_ROUTE, SEARCH_ROUTE, PROFILE_ROUTE, REGUSER_ROUTE, MYTASKS_ROUTE } from './utils/consts'
 import { RegPage } from './components/pages/registration/RegPage'
 import { ListPage } from './components/pages/list/ListPage'
 import { ProfilePage } from './components/pages/profile/ProfilePage'
 import { RegUserPage } from './components/pages/registration/RegUserPage'
+import { MyTasksPage } from './components/pages/mytasks/MyTasksPage'
 
 export const PublicRoutes = [
     {
@@ -19,7 +20,7 @@ export const PublicRoutes = [
         path: SEARCH_ROUTE
     },
     {
-        Component: <RegUserPage/>,
+        Component: <RegUserPage />,
         path: REGUSER_ROUTE
     }
 ];
@@ -28,19 +29,23 @@ export const ClientRoutes = [
     {
         Component: <ProfilePage />,
         path: PROFILE_ROUTE
+    },
+    {
+        Component: <MyTasksPage />,
+        path: MYTASKS_ROUTE
     }
 ];
 
 export const WorkerRoutes = [
     {
-        Component: <MainPage />,
-        path: MAIN_ROUTE
+        Component: <ProfilePage />,
+        path: PROFILE_ROUTE
     }
 ];
 
 export const AdminRoutes = [
     {
-        Component: <MainPage />,
-        path: MAIN_ROUTE
+        Component: <ProfilePage />,
+        path: PROFILE_ROUTE
     }
 ];

@@ -60,11 +60,23 @@ const deleteTask = async (req, res, next) => {
     }
 }
 
+
+const getByClient = async (req, res, next) => {
+    try {
+        const clientId = req.params.id;
+        const tasks = await taskData.getByClient(clientId);
+        res.send(tasks);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getTasks,
     getById,
     addTask,
     updateTask,
     deleteTask,
-    getByDescr
+    getByDescr,
+    getByClient
 }

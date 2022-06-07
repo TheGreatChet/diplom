@@ -8,7 +8,7 @@ import { MyInput } from "../../common/MyInput/MyInput";
 import { MyLargeInput } from "../../common/MyLargeInput/MyLargeInput";
 import { MySelect } from "../../common/MySelect/MySelect";
 
-export const TasksPage = ({ role }) => {
+export const TasksPage = () => {
   const [isCreate, setCreate] = useState(false);
   const [isChangeStatus, setChangeStatus] = useState(false);
 

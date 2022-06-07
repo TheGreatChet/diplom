@@ -18,7 +18,7 @@ const getById = async (emplId) => {
     try {
         let pool = await sql.connect(cfg.sql);
         const sqlQueries = await utils.loadSqlQueries('employee')
-        const employee = await pool.request().input('emplId', sql.Int, emplId).query(sqlQueries.emplById);
+        const employee = await pool.request().input('accountId', sql.Int, emplId).query(sqlQueries.emplById);
         return employee.recordset;
     } catch (error) {
         return error.message;
@@ -44,7 +44,7 @@ const updateEmployee = async (emplId, emplData) => {
     try {
         let pool = await sql.connect(cfg.sql);
         const sqlQueries = await utils.loadSqlQueries('employee')
-        const updated = await pool.request().input('emplId', sql.Int, emplId)
+        const updated = await pool.request().input('accountId', sql.Int, emplId)
             .input('name', sql.NVarChar(25), emplData.name)
             .input('surname', sql.NVarChar(25), emplData.surname)
             .input('patronymic', sql.NVarChar(25), emplData.patronymic)

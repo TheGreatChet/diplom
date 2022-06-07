@@ -57,6 +57,8 @@ const Header = () => {
         username: login,
         password: password
       });
+      
+      if (error) toast.error(error)
       console.log(data.accountId)
       auth.login(data.token, data.roleId, data.accountId);
       navigate(PROFILE_ROUTE);

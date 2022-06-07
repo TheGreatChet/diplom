@@ -80,6 +80,17 @@ const deleteTask = async (taskId) => {
     }
 }
 
+const getByClient = async (clientId) => {
+    try {
+        let pool = await sql.connect(cfg.sql);
+        const sqlQueries = await utils.loadSqlQueries('task')
+        const task = await pool.request().input('clientId', sql.Int, clientId).query(sqlQueries.tasksByClient);
+        return task.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 
 module.exports = {
     getTasks,
@@ -87,5 +98,6 @@ module.exports = {
     createTask,
     updateTask,
     deleteTask,
-    getByDescr
+    getByDescr,
+    getByClient
 }

@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react"
+import { toast } from "react-toastify";
 
 export const useHttp = () => {
     const [loading, setLoading] = useState(false)
@@ -23,8 +24,8 @@ export const useHttp = () => {
             return data;
         } catch (error) {
             setLoading(false)
-            setError(error.message)
-            throw error
+                setError(error.message)
+                toast.error(error.message)
         }
     }, []);
 

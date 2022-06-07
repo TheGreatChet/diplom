@@ -2,8 +2,8 @@ SELECT [TaskId]
       ,[Title]
       ,[Descryption]
       ,[StatusId]
-      ,[CarId]
+      ,[Car]
       ,[TypeId]
       ,[Date]
 FROM [dbo].[Task]
-WHERE [Descryption] like @descryption
+WHERE [Descryption] LIKE '%' + @descryption + '%'

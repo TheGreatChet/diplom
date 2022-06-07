@@ -9,7 +9,7 @@ import { MyInput } from "../../common/MyInput/MyInput";
 export const RegUserPage = () => {
   const {state} = useLocation();
   const { param } = state;
-
+  console.log(param);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [patr, setPatr] = useState("");
@@ -33,7 +33,6 @@ export const RegUserPage = () => {
       patronymic: patr,
       accountId: param,
     }).then(
-
     await new Promise(() => toast.info("Регистрация прошла успешно. \n Авторизуйтесь для продолжения работы")).then(
     await new Promise(() => navigate('/'))));
   };
