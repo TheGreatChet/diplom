@@ -1,10 +1,16 @@
 import React from "react";
 import classes from './MyListItem.module.scss'
-import { ChatLeftFill } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
 
-export const MyListItem = ({title, descr, time}) => {
+export const MyListItem = ({title, descr, time, taskId}) => {
+  const navigate = useNavigate();
+
+  async function goToChat () {
+    navigate("/chat", { state: { param: taskId, title: title } });
+  }
+
   return (
-    <div className={classes.listElement}>
+    <div className={classes.listElement} onClick={goToChat}>
       <div className={classes.listElementR1}>
         <h3>{title}</h3>
       </div>
@@ -14,8 +20,6 @@ export const MyListItem = ({title, descr, time}) => {
         </h5>
       </div>
       <div className={classes.listElementR3}>
-        <ChatLeftFill style={{ margin: 5 }} />
-        <h6>Чат</h6>
         <h6 id={classes.date}>{time}</h6>
       </div>
     </div>

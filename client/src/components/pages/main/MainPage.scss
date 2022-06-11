@@ -1,15 +1,18 @@
 .search {
   position: sticky;
-  background-color: var(--color-background);
   margin-top: -20px;
   width: 100%;
-  height: 300px;
+  height: 450px;
   padding-left: 5%;
   padding-right: 5%;
+  display: grid;
+  grid-template-columns: 650px 50%;
 }
 
 .search-input {
-  width: 600px;
+  width: auto;
+  min-width: 400px;
+  font-size: 0.8rem;
   border: 3px solid var(--color-primary);
   border-right: none;
   border-radius: 5px 0 0 5px;
@@ -48,6 +51,7 @@
   grid-template-columns: 2;
   grid-template-columns: 50% 50%;
   height: 350px;
+  margin-top: 50px;
   padding-left: 5%;
   padding-right: 5%;
 }
@@ -69,6 +73,7 @@
   background-repeat: no-repeat;
   animation: fade 24s infinite;
   z-index: -1;
+  box-shadow: 0px 0px 19px 9px rgba(0,0,0,0.31);
 }
 
 #pic1 {
@@ -106,18 +111,14 @@
 
 
 @media only screen and (max-width:700px) {
-  .search {
-    position: unset;
-    margin-top: 0;
-  }
-
   .search-text {
     font-size: 18px;
     z-index: 1;
   }
 
   .search-input {
-    width: 250px;
+    min-width: 250px;
+    width: 100px;
   }
 
   .about {
@@ -134,15 +135,37 @@
 }
 
 @media only screen and (max-width:1150px) {
+  .container-center {
+    top: 150%;
+  }
+  .search {
+    position: unset;
+    margin-top: 0;
+    grid-template-columns: 100%;
+  }
+  
+  .search {
+    height: 300px;
+  }
+
+  .troubles-txt {
+    font-size: 20px !important;
+  }
+
+  .car-img {
+    visibility: hidden;
+  }
+
   .about-text {
     grid-column-start: 1;
     grid-column-end: 3;
 
-    h4 {
+    h1 {
       color: white;
     }
-    h2 {
+    h3 {
       color: white;
+      font-size: 15px;
     }
   }
 

@@ -6,6 +6,7 @@ const { config } = require('dotenv');
 const getClients = async () => {
     try {
         let pool = await sql.connect(cfg.sql);
+        console.log("a")
         const sqlQueries = await utils.loadSqlQueries('client')
         const list = await pool.request().query(sqlQueries.clientsList);
         return list.recordset;

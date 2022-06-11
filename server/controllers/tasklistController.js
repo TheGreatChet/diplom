@@ -9,6 +9,17 @@ const getTaskList = async (req, res, next) => {
     }
 }
 
+const addTaskList = async (req, res, next) => {
+    try {
+        const data = req.body;
+        const created = await listData.createList(data);
+        res.send(created);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
-    getTaskList
+    getTaskList,
+    addTaskList
 } 

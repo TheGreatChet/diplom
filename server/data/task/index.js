@@ -14,6 +14,17 @@ const getTasks = async () => {
     }
 }
 
+const getLast = async () => {
+    try {
+        let pool = await sql.connect(cfg.sql);
+        const sqlQueries = await utils.loadSqlQueries('task')
+        const list = await pool.request().query(sqlQueries.lastTask);
+        return list.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const getById = async (taskId) => {
     try {
         let pool = await sql.connect(cfg.sql);
@@ -43,7 +54,7 @@ const createTask = async (taskData) => {
         const insertTask = await pool.request().input('title', sql.NVarChar(50), taskData.title)
             .input('descryption', sql.NVarChar(300), taskData.descryption)
             .input('statusId', sql.Int, taskData.statusId)
-            .input('carId', sql.Int, taskData.carId)
+            .input('car', sql.NVarChar(150), taskData.car)
             .input('typeId', sql.Int, taskData.typeId)           
             .query(sqlQueries.createTask);
         return insertTask.recordset;
@@ -91,6 +102,17 @@ const getByClient = async (clientId) => {
     }
 }
 
+const getByEmpl = async (emplId) => {
+    try {
+        let pool = await sql.connect(cfg.sql);
+        const sqlQueries = await utils.loadSqlQueries('task')
+        const task = await pool.request().input('emplId', sql.Int, emplId).query(sqlQueries.taskByEmpl);
+        return task.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 
 module.exports = {
     getTasks,
@@ -99,5 +121,7 @@ module.exports = {
     updateTask,
     deleteTask,
     getByDescr,
-    getByClient
+    getByClient,
+    getLast,
+    getByEmpl
 }

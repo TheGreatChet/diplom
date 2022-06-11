@@ -1,0 +1,10 @@
+SELECT [Task].[TaskId]
+      ,[Title]
+      ,[Descryption]
+      ,[Car]
+      ,[StatusId]
+      ,[TypeId]
+      ,[Date]
+FROM [dbo].[Task]
+INNER JOIN [TaskList] on TaskList.TaskId = [dbo].[Task].[TaskId]
+WHERE [TaskList].EmplId = (SELECT Employee.EmplId FROM Employee WHERE AccountId = @emplId)

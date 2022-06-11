@@ -7,12 +7,13 @@ export const MyList = ({ items }) => {
   if (items != null) {
     return (
       <div className={classes.listContent}>
-        {items.map((item) => {
+        {items.map((item, index) => {
           return (
             <MyListItem
-              key={item.TaskId}
+              key={index}
               title={item.Title}
               descr={item.Descryption}
+              taskId={item.TaskId}
               time={format(Date.parse(item.Date), "dd/MM/yyyy")}
             />
           );

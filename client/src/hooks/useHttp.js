@@ -25,7 +25,7 @@ export const useHttp = () => {
         } catch (error) {
             setLoading(false)
                 setError(error.message)
-                toast.error(error.message)
+                // toast.error(error.message)
         }
     }, []);
 

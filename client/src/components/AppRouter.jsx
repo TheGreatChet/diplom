@@ -13,7 +13,7 @@ const AppRouter = (isAuth) => {
           {ClientRoutes.map(({ path, Component }) => (
             <Route key={path} path={path} element={Component} />
           ))}
-          <Route path="*" element={<Navigate to="/profile" replace/>}/>
+          <Route path="*" element={<Navigate to="/mytasks" replace/>}/>
         </Routes>
       );
     }
@@ -23,7 +23,7 @@ const AppRouter = (isAuth) => {
           {WorkerRoutes.map(({ path, Component }) => (
             <Route key={path} path={path} element={Component} />
           ))}
-          <Route path="*" element={<Navigate to="/profile" replace/>}/>
+          <Route path="*" element={<Navigate to="/mytasks" replace/>}/>
         </Routes>
       );
     }

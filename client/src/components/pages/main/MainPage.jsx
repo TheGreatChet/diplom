@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { SEARCH_ROUTE } from "../../../utils/consts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import car from '../../../assets/images/car.png'
 
 export const MainPage = () => {
   const [req, setReq] = useState("");
@@ -23,10 +24,10 @@ export const MainPage = () => {
   }
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
       <section className="search">
         <div className="container-center">
-          <h2 className="search-text">Проблемы с авто?</h2>
+          <h1 className="troubles-txt" style={{ fontSize: 29 }}>Проблемы с авто?</h1>
           <div className="container center">
             <input
               className="search-input"
@@ -42,6 +43,7 @@ export const MainPage = () => {
             </button>
           </div>
         </div>
+        <img className="car-img" src={car} style={{height: 430, marginTop: 30}}/>
       </section>
 
       <section className="about">
@@ -50,13 +52,11 @@ export const MainPage = () => {
         <div className="pic" id="pic1" />
 
         <div className="about-text">
-          <h2>О нас</h2>
-          <h4>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Exercitationem accusantium laboriosam inventore quasi repudiandae.
-            Libero officia ut doloribus eos, tempore voluptatibus nisi fuga
-            eveniet quos explicabo dolores autem, provident corrupti.
-          </h4>
+          <h1 style={{ fontSize: 29 }}>О нас</h1>
+          <h3>
+            Компания "Автомир" занимается ремонтов автомобилей с 2001 года. Мы являемся лидером в Балтасинском районе.
+            В услуги компании так же входит шиномонтаж и работа над кузовом.
+          </h3>
         </div>
       </section>
 

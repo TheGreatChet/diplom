@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { MAIN_ROUTE } from "../utils/consts"
 
 export const useAuth = () => {
     const [token, setToken] = useState('')
     const [role, setRole] = useState('')
     const [accountId, setId] = useState('')
-
+    const navigate = useNavigate();
 
     const login = useCallback((jwt, roleId, accountId) => {
         localStorage.setItem('userData', JSON.stringify({
@@ -22,6 +24,7 @@ export const useAuth = () => {
         setToken('')
         setRole('')
         setId('')
+        navigate(MAIN_ROUTE)
     }, [])
 
     useEffect(() => {

@@ -1,12 +1,27 @@
-.list-container {
+.task-container {
   display: grid;
-  grid-template-columns: 25% auto;
+  grid-template-rows: 120px auto;
+  height: auto;
+  min-height: 600px;
+  grid-template-columns: 200px auto 200px;
   background-color: var(--color-background);
 }
 
-.list-sidebar {
-  height: 600px;
+.list-header {
+  background-color: white;
+  grid-row-start: 1;
   grid-column-start: 1;
+  grid-column-end: 4;
+  display: flex;
+  width: auto;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-content {
+  grid-column-start: 2;
+  height: auto;
 }
 
 .empty {
@@ -15,14 +30,14 @@
   justify-self: center;
 }
 
-@media only screen and (max-width: 700px) {
-  .list-container {
-    grid-template-columns: none;
-    grid-template-rows: 150px auto;
-  }
-
-  .list-sidebar {
-    grid-row-start: 1;
-  }
+.create-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+@media only screen and (max-width: 700px) {
+  .task-container {
+    grid-template-columns: 10px auto 10px;
+  }
+}

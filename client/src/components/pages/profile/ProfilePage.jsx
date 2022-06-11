@@ -107,7 +107,7 @@ export const ProfilePage = () => {
       return;
     }
 
-    if (roleId == 2) {
+    if (roleId == 1) {
       saveAcc().then(saveClient()).then(toast.success("Успешно"));
     } else {
       saveAcc().then(saveEmpl()).then(toast.success("Успешно"));

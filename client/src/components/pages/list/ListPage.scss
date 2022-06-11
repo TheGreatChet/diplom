@@ -1,5 +1,6 @@
 .list-container {
-  display: grid;
+  display: grid !important;
+  height: 600px !important;
   grid-template-columns: 25% auto;
   background-color: var(--color-background);
 }

@@ -9,6 +9,15 @@ const getTasks = async (req, res, next) => {
     }
 }
 
+const getLast = async (req, res, next) => {
+    try {
+        const tasks = await taskData.getLast();
+        res.send(tasks);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const getById = async (req, res, next) => {
     try {
         const taskId = req.params.id;
@@ -71,6 +80,16 @@ const getByClient = async (req, res, next) => {
     }
 }
 
+const getByEmpl = async (req, res, next) => {
+    try {
+        const emplId = req.params.id;
+        const tasks = await taskData.getByEmpl(emplId);
+        res.send(tasks);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getTasks,
     getById,
@@ -78,5 +97,7 @@ module.exports = {
     updateTask,
     deleteTask,
     getByDescr,
-    getByClient
+    getByClient,
+    getLast,
+    getByEmpl
 }

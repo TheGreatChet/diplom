@@ -1,10 +1,10 @@
 const express = require('express');
-const taskController = require('../controllers/taskController');
+const typeController = require('../controllers/typeController');
 const router = express.Router();
 
-const {getTasks} = taskController;
+const {getTypes} = typeController;
 
-router.get('/', getTasks);
+router.get('/', getTypes);
 
 module.exports = {
     router: router

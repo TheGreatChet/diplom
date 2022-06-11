@@ -59,7 +59,6 @@ const Header = () => {
       });
       
       if (error) toast.error(error)
-      console.log(data.accountId)
       auth.login(data.token, data.roleId, data.accountId);
       navigate(PROFILE_ROUTE);
     } catch (error) {}
@@ -102,6 +101,8 @@ const Header = () => {
         )}
         {(isNavVisible || !isSmallScreen) && auth.token && (
           <nav className="auth-btn-div">
+            <MyButton style={{width: 110}} onClick={() => navigate('/mytasks')}>Мои задачи</MyButton>
+            <MyButton onClick={() => navigate('/profile')}>Профиль</MyButton>
             <MyButton onClick={() => auth.logout()}>Выйти</MyButton>
           </nav>
         )}
