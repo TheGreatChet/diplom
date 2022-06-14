@@ -90,6 +90,17 @@ const getByEmpl = async (req, res, next) => {
     }
 }
 
+const changeStatus = async (req, res, next) => {
+    try {
+        const taskId = req.params.id;
+        const data = req.body;
+        const updated = await taskData.changeStatus(taskId, data);
+        res.send(updated);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getTasks,
     getById,
@@ -99,5 +110,6 @@ module.exports = {
     getByDescr,
     getByClient,
     getLast,
-    getByEmpl
+    getByEmpl,
+    changeStatus
 }

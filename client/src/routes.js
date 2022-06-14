@@ -64,5 +64,9 @@ export const AdminRoutes = [
     {
         Component: <ProfilePage />,
         path: PROFILE_ROUTE
+    }, 
+    {
+        Component: <MyTasksPage />,
+        path: MYTASKS_ROUTE
     }
 ];

@@ -14,6 +14,7 @@ export const MyList = ({ items }) => {
               title={item.Title}
               descr={item.Descryption}
               taskId={item.TaskId}
+              statusId={item.StatusId}
               time={format(Date.parse(item.Date), "dd/MM/yyyy")}
             />
           );

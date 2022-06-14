@@ -10,8 +10,11 @@ import { MyInput } from "../../common/MyInput/MyInput";
 import { MyLargeInput } from "../../common/MyLargeInput/MyLargeInput"
 import { MySelect } from "../../common/MySelect/MySelect"
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { AuthContext } from '../../../context/AuthContext'
 
 export const MyTasksPage = () => {
+  const auth = useContext(AuthContext);
   const { request } = useHttp();
   const [data, setData] = useState({});
   const [types, setTypes] = useState({});
@@ -40,7 +43,7 @@ export const MyTasksPage = () => {
     const result = await request("/api/type/");
     setTypes(result);
   }
-  
+
 
   useEffect(() => {
     getData().then(getTypes()).then(getLast());
@@ -90,6 +93,7 @@ export const MyTasksPage = () => {
       toast.error("Выберите тип")
       return
     }
+
     sendTask().then(sendList()).then(await sleep(500)).then(update()).then(setCreateVisible(false)).then(toast.success("Успешно"));
   }
 
@@ -97,10 +101,11 @@ export const MyTasksPage = () => {
     return (
       <div className="task-container">
         <div className="list-header">
-          <MyButton style={{ width: 150 }} onClick={() => setCreateVisible(true)}>Создать задачу</MyButton>
+        {JSON.parse(localStorage.getItem("userData")).roleId == 1 && (
+          <MyButton style={{ width: 150 }} onClick={() => setCreateVisible(true)}>Создать задачу</MyButton>)}
         </div>
         <div className="task-content">
-          {isLoading ? <Loader /> : <MyList items={data} />}
+          {isLoading ? <div style={{display: 'flex', justifyContent: "center", marginTop: '180px'}}><Loader /></div> : <MyList items={data} />}
         </div>
         <MyModal
           title="Создание задачи"
@@ -122,7 +127,7 @@ export const MyTasksPage = () => {
                 )
               })}
             </MySelect>
-            <MyButton style={{ margin: 20 }} onClick={saveHandler}>Создать</MyButton>
+              <MyButton style={{ margin: 20 }} onClick={saveHandler}>Создать</MyButton>
           </div>
         </MyModal>
       </div>
@@ -131,10 +136,9 @@ export const MyTasksPage = () => {
     return (
       <div className="task-container">
         <div className="list-header">
-          <MyButton style={{ width: 150 }} onClick={() => setCreateVisible(true)}>Создать задачу</MyButton>
         </div>
-        <div className="task-content" style={{textAlign: "center"}}>
-          {isLoading ? <Loader /> : <h1 className="tasks-empty">У вас отсутствуют задачи</h1>}
+        <div className="task-content" style={{ textAlign: "center" }}>
+          {isLoading ? <div style={{display: 'flex', justifyContent: "center", marginTop: '180px'}}><Loader /></div> : <h1 className="tasks-empty">У вас отсутствуют задачи</h1>}
         </div>
       </div>
     );

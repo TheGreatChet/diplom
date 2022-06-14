@@ -113,6 +113,19 @@ const getByEmpl = async (emplId) => {
     }
 }
 
+const changeStatus = async (taskId, data) => {
+    try {
+        let pool = await sql.connect(cfg.sql);
+        const sqlQueries = await utils.loadSqlQueries('task')
+        const insertTask = await pool.request().input('taskId', sql.Int, taskId)
+            .input('statusId', sql.Int, data.statusId)           
+            .query(sqlQueries.changeStatus);
+        return insertTask.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 
 module.exports = {
     getTasks,
@@ -123,5 +136,6 @@ module.exports = {
     getByDescr,
     getByClient,
     getLast,
-    getByEmpl
+    getByEmpl,
+    changeStatus
 }

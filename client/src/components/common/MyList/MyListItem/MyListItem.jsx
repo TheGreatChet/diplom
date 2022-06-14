@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from './MyListItem.module.scss'
 import { useNavigate } from "react-router-dom";
+import { MySelect } from "../../MySelect/MySelect";
+import { useEffect } from "react";
+import { useHttp } from "../../../../hooks/useHttp";
+import { toast } from "react-toastify";
 
-export const MyListItem = ({title, descr, time, taskId}) => {
+export const MyListItem = ({title, descr, time, taskId, statusId}) => {
   const navigate = useNavigate();
+  const { request } = useHttp();
+  const [statuses, setStatuses] = useState({})
+  const [curStatus, setCurStatus] = useState(statusId)
 
   async function goToChat () {
-    navigate("/chat", { state: { param: taskId, title: title } });
+    if (JSON.parse(localStorage.getItem("userData")).roleId != '0') {
+      navigate("/chat", { state: { param: taskId, title: title } });
+    }
   }
+  
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function getStatus() {
+    const result = await request("/api/status/");
+    setStatuses(result);
+  }
+
+  useEffect(() => {
+    getStatus()
+  }, [])
 
   return (
     <div className={classes.listElement} onClick={goToChat}>
@@ -20,6 +42,20 @@ export const MyListItem = ({title, descr, time, taskId}) => {
         </h5>
       </div>
       <div className={classes.listElementR3}>
+        <h5 style={{marginRight: 10, paddingкы: 0}}>Статус</h5>
+        <MySelect value={curStatus} onChange={async (e) => {
+              setCurStatus(e.target.value)
+              const result = await request("/api/tasks/changestatus/" + taskId, 'PUT', {
+                statusId: e.target.value
+              });
+              toast.success('Статус изменён')
+        }}>
+          {Array.from(statuses).map((status, index) => {
+            return (
+              <option key={index} value={status.StatusId}>{status.Name}</option>
+            )
+          })}
+        </MySelect>
         <h6 id={classes.date}>{time}</h6>
       </div>
     </div>
