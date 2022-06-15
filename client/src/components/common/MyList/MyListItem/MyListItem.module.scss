@@ -1,9 +1,10 @@
 .listElement {
     display: grid;
-    grid-template-rows: 20% 50% 30%;
-    height: 150px;
+    grid-template-rows: 20% 45% 35%;
+    height: auto;
     padding: 10px;
     width: auto;
+    max-width: 1000px;
   
     .listElementR1 {
       display: flex;
@@ -28,7 +29,8 @@
   
       h5 {
         padding-top: 10px;
-        word-wrap: break-word;
+        height: auto;
+        overflow-wrap: anywhere;
       }
     }
   

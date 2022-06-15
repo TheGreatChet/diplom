@@ -28,7 +28,21 @@ const createList = async (data) => {
     }
 }
 
+const changeEmpl = async (taskId, data) => {
+    try {
+        let pool = await sql.connect(cfg.sql);
+        const sqlQueries = await utils.loadSqlQueries('list')
+        const insertTask = await pool.request().input('taskId', sql.Int, taskId)
+            .input('emplId', sql.Int, data.emplId)           
+            .query(sqlQueries.changeEmpl);
+        return insertTask.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
     getTaskList,
-    createList
+    createList,
+    changeEmpl
 }

@@ -4,6 +4,7 @@ import classes from "./MyList.module.scss";
 import { format } from "date-fns";
 
 export const MyList = ({ items }) => {
+
   if (items != null) {
     return (
       <div className={classes.listContent}>
@@ -15,6 +16,7 @@ export const MyList = ({ items }) => {
               descr={item.Descryption}
               taskId={item.TaskId}
               statusId={item.StatusId}
+              emplId={item.EmplId}
               time={format(Date.parse(item.Date), "dd/MM/yyyy")}
             />
           );
