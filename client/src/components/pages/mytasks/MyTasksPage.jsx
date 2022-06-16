@@ -21,6 +21,20 @@ export const MyTasksPage = () => {
   const [auto, setAuto] = useState('')
   const [selType, setSelType] = useState('')
 
+  async function getData() {
+    setLoading(true);
+    let result = ''
+    if (JSON.parse(localStorage.getItem("userData")).roleId === 1) {
+      result = await request("/api/tasks/byclient/" + JSON.parse(localStorage.getItem("userData")).accountId, "GET");
+    } else if (JSON.parse(localStorage.getItem("userData")).roleId === 2) {
+      result = await request("/api/tasks/byempl/" + JSON.parse(localStorage.getItem("userData")).accountId, "GET");
+    } else {
+      result = await request("/api/tasks/", "GET");
+      result = result.filter(c => c.StatusId === 1);
+    }
+    setData(result);
+    setLoading(false);
+  }
 
   useEffect(() => {
     async function getData() {
@@ -37,6 +51,7 @@ export const MyTasksPage = () => {
       setData(result);
       setLoading(false);
     }
+
     console.log(JSON.parse(localStorage.getItem("userData")).roleId)
     async function getTypes() {
       const result = await request("/api/type/");
@@ -87,6 +102,7 @@ export const MyTasksPage = () => {
     sendTask().then(await sleep(500)).then(sendList()).then(setCreateVisible(false)).then(toast.success("Успешно"));
   }
 
+
   if (data.length && types) {
     return (
       <div className="task-container">
@@ -95,7 +111,7 @@ export const MyTasksPage = () => {
             <MyButton style={{ width: 150 }} onClick={() => setCreateVisible(true)}>Создать задачу</MyButton>)}
         </div>
         <div className="task-content">
-          {isLoading ? <div style={{ display: 'flex', justifyContent: "center", marginTop: '180px' }}><Loader /></div> : <MyList items={data} />}
+          {isLoading ? <div style={{ display: 'flex', justifyContent: "center", marginTop: '180px' }}><Loader /></div> : <MyList items={data} upd={getData} />}
         </div>
         <MyModal
           title="Создание задачи"

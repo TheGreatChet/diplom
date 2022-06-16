@@ -3,7 +3,7 @@
   grid-template-rows: 120px auto;
   height: auto;
   min-height: 600px;
-  grid-template-columns: 200px auto 200px;
+  grid-template-columns: 120px auto 120px;
   background-color: var(--color-background);
 }
 
@@ -14,7 +14,7 @@
   grid-column-end: 4;
   display: flex;
   width: auto;
-  height: auto;
+  height: 80px;
   justify-content: center;
   align-items: center;
 }
@@ -38,6 +38,7 @@
 
 @media only screen and (max-width: 700px) {
   .task-container {
-    grid-template-columns: 10px auto 10px;
+  grid-template-columns: 40px auto 40px;
+
   }
 }

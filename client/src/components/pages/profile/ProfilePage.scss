@@ -20,6 +20,8 @@
     border-style: solid;
     border-width: thin;
     .profile-image {
+      object-fit: scale-down;
+      padding: 5px;
       margin-top: 10px;
       width: 250px;
       height: 250px;

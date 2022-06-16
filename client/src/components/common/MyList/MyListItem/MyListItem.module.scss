@@ -1,19 +1,18 @@
 .listElement {
     display: grid;
-    grid-template-rows: 20% 45% 35%;
+    grid-template-rows: 15% auto 10% 20%;
     height: auto;
     padding: 10px;
-    width: auto;
-    max-width: 1000px;
-  
+    width: 100%;
+    background-color: white;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer; 
     .listElementR1 {
       display: flex;
       align-items: center;
       padding-top: 5px;
       padding-left: 15px;
-      background-color: white;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
   
       h3 {
         font-weight: bold;
@@ -22,7 +21,6 @@
   
     .listElementR2 {
       display: flex;
-      // align-items: center;
       padding-left: 15px;
       padding-right: 15px;
       background-color: white;
@@ -38,9 +36,6 @@
       display: flex;
       padding-left: 15px;
       align-items: center;
-      background-color: white;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
   
       h6 {
           padding: 0;
@@ -52,5 +47,11 @@
           margin-left: auto;
           margin-right: 15px;
       }
+    }
+
+    .listElementR4 {
+      display: flex;
+      flex-direction: column;
+      padding-left: 15px;
     }
   }
