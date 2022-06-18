@@ -5,6 +5,8 @@ import { MyInput } from "../../common/MyInput/MyInput";
 import { MyButton } from "../../common/MyButton/MyButton";
 import { Loader } from "../../common/Loader/Loader"
 import { ToastContainer, toast } from "react-toastify";
+import validator from 'validator';
+
 
 export const ProfilePage = () => {
   const { request } = useHttp();
@@ -106,7 +108,15 @@ export const ProfilePage = () => {
       toast.error("Заполните все поля!\n(Поле отчества необязательное)");
       return;
     }
-
+    if (!validator.isEmail(login)) {
+      toast.error("Используйте верный формат почты: example@yandex.ru");
+      return;
+    }
+    if (!validator.isAlpha(name, ['ru-RU']) || !validator.isAlpha(surname, ['ru-RU']) || (patr && !validator.isAlpha(patr, ['ru-RU']))) {
+      console.log('a')
+      toast.error("Используйте только кириллицу");
+      return;
+    }
     if (roleId == 1) {
       saveAcc().then(saveClient()).then(toast.success("Успешно"));
     } else {

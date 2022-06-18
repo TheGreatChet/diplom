@@ -29,19 +29,8 @@ const addMessage = async (req, res, next) => {
     }
 }
 
-const deleteMessage = async (req, res, next) => {
-    try {
-        const chatId = req.params.id;
-        const deleted = await chatData.deleteMessage(chatId);
-        res.send(deleted);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
 module.exports = {
     getChats,
     getById,
-    addMessage,
-    deleteMessage
+    addMessage
 }

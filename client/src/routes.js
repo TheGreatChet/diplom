@@ -42,6 +42,10 @@ export const ClientRoutes = [
     {
         Component: <ChatPage/>,
         path: CHAT_ROUTE
+    },
+    {
+        Component: <ListPage />,
+        path: SEARCH_ROUTE
     }
 ];
 

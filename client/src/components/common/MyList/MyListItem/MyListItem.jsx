@@ -7,7 +7,7 @@ import { useHttp } from "../../../../hooks/useHttp";
 import { toast } from "react-toastify";
 import { MyModal } from "../../MyModal/MyModal";
 
-export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId, upd, statusName, typeName }) => {
+export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId, upd, statusName, typeName, clientId }) => {
   const navigate = useNavigate();
   const { request } = useHttp();
   const [statuses, setStatuses] = useState({ stats })
@@ -16,9 +16,10 @@ export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId
   const [curEmpl, setCurEmpl] = useState(emplId);
   const [modal, setModal] = useState(false)
 
+
   async function goToChat() {
     if (localStorage.getItem("userData") == null) {
-      navigate("/chat", { state: { param: taskId, title: title, statusId } });
+      navigate("/chat", { state: { param: taskId, title: title, statusId, emplId, clientId } });
       return;
     }
 
@@ -52,7 +53,7 @@ export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId
           <h3>Заголовок: {title}</h3>
           <h3>Описание: {descr}</h3>
           {statuses && empl && (
-            <div style={{ display: 'flex' }}>
+            <div className={classes.listitemModalwrap}>
               <h5 style={{ marginRight: 10, padding: 0, alignSelf: 'center' }}>Статус</h5>
               <MySelect style={{ width: 160 }} value={curStatus} onChange={async (e) => {
                 if (e.target.value === '2') {
@@ -113,7 +114,7 @@ export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId
         </div>
         <div className={classes.listElementR4}>
           <h5>Текущий статус: {statusName}</h5>
-          <h5>Тип поломки: {statusName}</h5>
+          <h5>Тип поломки: {typeName}</h5>
         </div>
       </div>
     </div>

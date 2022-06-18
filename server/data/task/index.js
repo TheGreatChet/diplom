@@ -63,34 +63,6 @@ const createTask = async (taskData) => {
     }
 }
 
-const updateTask = async (taskId, taskData) => {
-    try {
-        let pool = await sql.connect(cfg.sql);
-        const sqlQueries = await utils.loadSqlQueries('task')
-        const insertTask = await pool.request().insert('taskId', sql.Int, taskId)
-            .input('title', sql.NVarChar(50), taskData.title)
-            .input('descryption', sql.NVarChar(300), taskData.descryption)
-            .input('statusId', sql.Int, taskData.statusId)
-            .input('carId', sql.Int, taskData.carId)
-            .input('typeId', sql.Int, taskData.typeId)           
-            .query(sqlQueries.updateTask);
-        return insertTask.recordset;
-    } catch (error) {
-        return error.message;
-    }
-}
-
-const deleteTask = async (taskId) => {
-    try {
-        let pool = await sql.connect(cfg.sql);
-        const sqlQueries = await utils.loadSqlQueries('task')
-        const deleted = await pool.request().input('taskId', sql.Int, taskId).query(sqlQueries.deleteTask);
-        return deleted.recordset;
-    } catch (error) {
-        return error.message;
-    }
-}
-
 const getByClient = async (clientId) => {
     try {
         let pool = await sql.connect(cfg.sql);
@@ -131,8 +103,6 @@ module.exports = {
     getTasks,
     getById,
     createTask,
-    updateTask,
-    deleteTask,
     getByDescr,
     getByClient,
     getLast,

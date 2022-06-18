@@ -48,28 +48,6 @@ const addTask = async (req, res, next) => {
     }
 }
 
-const updateTask = async (req, res, next) => {
-    try {
-        const taskId = req.params.id;
-        const data = req.body;
-        const updated = await taskData.updateAccount(taskId, data);
-        res.send(updated);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
-const deleteTask = async (req, res, next) => {
-    try {
-        const taskId = req.params.id;
-        const deleted = await taskData.updateAccount(taskId);
-        res.send(deleted);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
-
 const getByClient = async (req, res, next) => {
     try {
         const clientId = req.params.id;
@@ -105,8 +83,6 @@ module.exports = {
     getTasks,
     getById,
     addTask,
-    updateTask,
-    deleteTask,
     getByDescr,
     getByClient,
     getLast,

@@ -7,35 +7,50 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { MyButton } from "../../common/MyButton/MyButton";
+import { toast } from "react-toastify";
+import { useMemo } from "react";
 
 export const ListPage = () => {
   const { state } = useLocation();
-  const { param } = state;
+  const [parametr, setParametr] = useState('')
+  const [req, setReq] = useState('')
+  
+  useMemo(() => {
+    if (state) {
+      const { param } = state;
+      setParametr(param)
+    }
+    if (parametr) setReq(parametr)
+  }, [state, parametr, setReq, setParametr])
+
+  console.log(req)
   const { request } = useHttp();
   const navigate = useNavigate()
 
   const [data, setData] = useState({});
   const [isLoading, setLoading] = useState(true);
-  const [req, setReq] = useState(param)
 
   useEffect(() => {
-    async function getData() {
-      setLoading(true);
-      const result = await request("/api/tasks/bydescr/".concat(req), "GET");
-      setData(result);
-      setLoading(false);
+    if (isLoading) {
+      async function getData() {
+        const result = await request("/api/tasks/bydescr/".concat(req), "GET");
+        setData(result);
+        setLoading(false);
+      }
+      getData();
     }
-
-    getData();
-  }, [param, request]);
+  }, [req, request]);
 
   async function search() {
+    if (!req) {
+      toast.error('Заполните поле поиска')
+      return;
+    }
     const result = await request("/api/tasks/bydescr/".concat(req), "GET");
     setData(result)
   }
 
-
-  if (data.length) {
+  if (JSON.stringify(data) !== '[]' && JSON.stringify(data) !== undefined && JSON.stringify(data) !== '{}') {
     return (
       <div className="list-wrap">
         <div className="list-sidebar">
@@ -52,8 +67,8 @@ export const ListPage = () => {
             <FontAwesomeIcon icon={faSearch} />
           </button>
         </div>
-        <div className="list-container">
-          <MyList items={data} />
+        <div className="list-container" style={{ minHeight: 600 }}>
+          <MyList items={data}/>
         </div>
       </div>
     );
@@ -81,7 +96,7 @@ export const ListPage = () => {
               <MyButton style={{ alignSelf: 'center', width: 150, height: 50 }} onClick={() => { navigate('/') }}>
                 <h2 style={{ padding: 0, margin: 0 }}>Назад</h2>
               </MyButton>
-            </div>}
+          </div>}
         </div>
       </div>
     );

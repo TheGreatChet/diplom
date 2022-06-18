@@ -40,20 +40,9 @@ const sendMessage = async (chatData) => {
     }
 }
 
-const deleteMessage = async (chatId) => {
-    try {
-        let pool = await sql.connect(cfg.sql);
-        const sqlQueries = await utils.loadSqlQueries('chat')
-        const deleted = await pool.request().input('chatId', sql.Int, chatId).query(sqlQueries.deleteMessage);
-        return deleted.recordset;
-    } catch (error) {
-        return error.message;
-    }
-}
 
 module.exports = {
     getChats,
     getById,
-    sendMessage,
-    deleteMessage
+    sendMessage
 }

@@ -1,57 +1,71 @@
 .listElement {
-    display: grid;
-    grid-template-rows: 15% auto 10% 20%;
-    height: auto;
-    padding: 10px;
-    width: 100%;
-    background-color: white;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer; 
-    .listElementR1 {
-      display: flex;
-      align-items: center;
-      padding-top: 5px;
-      padding-left: 15px;
-  
-      h3 {
-        font-weight: bold;
-      }
-    }
-  
-    .listElementR2 {
-      display: flex;
-      padding-left: 15px;
-      padding-right: 15px;
-      background-color: white;
-  
-      h5 {
-        padding-top: 10px;
-        height: auto;
-        overflow-wrap: anywhere;
-      }
-    }
-  
-    .listElementR3 {
-      display: flex;
-      padding-left: 15px;
-      align-items: center;
-  
-      h6 {
-          padding: 0;
-          padding-left: 5px;
-      }
-  
-      #date {
-          padding: 0;
-          margin-left: auto;
-          margin-right: 15px;
-      }
-    }
+  display: grid;
+  grid-template-rows: 15% auto 10% 20%;
+  height: auto;
+  padding: 10px;
+  width: 100%;
+  background-color: white;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  .listElementR1 {
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+    padding-left: 15px;
 
-    .listElementR4 {
-      display: flex;
-      flex-direction: column;
-      padding-left: 15px;
+    h3 {
+      font-weight: bold;
     }
   }
+
+  .listElementR2 {
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: white;
+
+    h5 {
+      padding-top: 10px;
+      height: auto;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .listElementR3 {
+    display: flex;
+    padding-left: 15px;
+    align-items: center;
+
+    h6 {
+      padding: 0;
+      padding-left: 5px;
+    }
+
+    #date {
+      padding: 0;
+      margin-left: auto;
+      margin-right: 15px;
+    }
+  }
+
+  .listElementR4 {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+  }
+}
+
+.listitemModalwrap {
+  display: flex;
+}
+
+@media only screen and (max-width: 700px) {
+  .listitemModalwrap {
+    flex-direction: column;
+    align-items: center;
+    h5 {
+      margin: 5px;
+    }
+  }
+}

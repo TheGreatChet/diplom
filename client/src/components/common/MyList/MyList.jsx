@@ -9,6 +9,7 @@ export const MyList = ({ items, upd }) => {
     return (
       <div className={classes.listContent}>
         {items.map((item, index) => {
+        console.log(item)
           return (
             <MyListItem
               key={index}
@@ -20,6 +21,7 @@ export const MyList = ({ items, upd }) => {
               statusName={item.StatusName}
               typeName={item.TypeName}
               emplId={item.EmplId}
+              clientId={item.ClientId}
               time={format(Date.parse(item.Date), "dd/MM/yyyy")}
             />
           );
@@ -27,6 +29,10 @@ export const MyList = ({ items, upd }) => {
       </div>
     );
   } else {
-    return <h1>Ответов по вашему запросу не найдено!</h1>;
+    return (  
+      <div style={{gridColumnStart: 2, height: 400, margin: 'auto', marginTop: '10%'}}>
+        <h1>Ответов по вашему запросу не найдено!</h1>
+      </div>
+    )
   }
 };

@@ -9,6 +9,10 @@ import { faPlus, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { toast } from 'react-toastify';
 import { useRef } from 'react';
 import { MyButton } from '../../common/MyButton/MyButton'
+import validator from 'validator';
+import { useCallback } from 'react';
+import { useMemo } from 'react';
+
 
 export const ChatPage = () => {
     const [chat, setChat] = useState({})
@@ -23,7 +27,16 @@ export const ChatPage = () => {
     const navigate = useNavigate()
 
     const { state } = useLocation();
-    const { param, title, statusId } = state;
+    const { param, title, statusId, clientId, emplId } = state;
+    const [isHim, setIsHim] = useState(true)
+
+    useMemo(() => {
+        if (localStorage.getItem("userData")) {
+            if ((clientId == localStorage.getItem("userData").accountId) || (emplId == localStorage.getItem("userData").accountId)) {
+                setIsHim(false)
+            }
+        }
+    }, [clientId, emplId])
 
     function sleep(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
@@ -40,6 +53,11 @@ export const ChatPage = () => {
         await sleep(200);
         if (!msg) {
             toast.error('Заполните поле сообщения')
+            return;
+        }
+        if (!validator.isAlphanumeric(msg, ['ru-RU'], {ignore: ' -'})) {
+            console.log('a')
+            toast.error("Используйте только кириллицу");
             return;
         }
         const send = await request("/api/taskchat/sendmessage", "POST", {
@@ -81,6 +99,13 @@ export const ChatPage = () => {
         };
     };
 
+    async function closeTask () {
+        await request("/api/tasks/changestatus/" + param, 'PUT', {
+            statusId: '4'
+        });
+        toast.success('Вопрос закрыт')
+        navigate('/')
+    }
 
     if (!loading && chat.length) {
         return (
@@ -117,7 +142,7 @@ export const ChatPage = () => {
                         })}
                     </div>
                 </div>
-                {(auth.token && statusId != 4) && (
+                {(auth.token && statusId != 4 && isHim) && (
                     <div className="chat-content-row2">
                         <input className="chat-getphoto" ref={inputFile} type="file" accept=".jpeg, .png, .jpg" onChange={getImage} style={{ display: 'none' }}></input>
                         <button className="chat-addphoto" onClick={() => { inputFile.current.click() }}>
@@ -137,7 +162,12 @@ export const ChatPage = () => {
                                 <span className='chat-sendbtntext'>Отправить</span>
                                 <FontAwesomeIcon className="chat-sendicon" style={{ width: 30, height: 30 }} icon={faCaretRight} />
                             </button>
-                            {JSON.parse(localStorage.getItem("userData")).roleId == '2' && (<MyButton style={{width: 120, height: 45}}>Закрыть заявку</MyButton>)}
+                            {JSON.parse(localStorage.getItem("userData")).roleId == '2' && (
+                                <button className='chat-sendbtn' onClick={closeTask}>    
+                                    <span className='chat-sendbtntext'>Закрыть заявку</span>
+                                    <span className="chat-sendicon">X</span>
+                                </button>
+                            )}
                         </div>
                     </div>
                 )}
@@ -149,6 +179,11 @@ export const ChatPage = () => {
                 {auth.token && statusId == 4 && (
                     <div className="chat-content-row2" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <h2>Вопрос закрыт, отправка запрещена</h2>
+                    </div>
+                )}
+                {auth.token && statusId != 4 && !isHim && (
+                    <div className="chat-content-row2" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <h2>Сообщение может отправлять только привязанный к вопросу пользователь</h2>
                     </div>
                 )}
             </div>
@@ -177,28 +212,33 @@ export const ChatPage = () => {
                         </div>
                     </div>
                 </div>
-                {(auth.token && statusId != 4) && (
+                {(auth.token && statusId != 4 && isHim) && (
                     <div className="chat-content-row2">
                         <input className="chat-getphoto" ref={inputFile} type="file" accept=".jpeg, .png, .jpg" onChange={getImage} style={{ display: 'none' }}></input>
                         <button className="chat-addphoto" onClick={() => { inputFile.current.click() }}>
                             <FontAwesomeIcon style={{ width: 30, height: 30 }} icon={faPlus} />
                         </button>
-                        <textarea className="chat-sendinput" onChange={(e) => setMsg(e.target.value)} value={msg} />
-                        <div style={{display: "flex", flexDirection: 'column', alignItems: 'center'}}>
-                            <button className="chat-sendbtn" onClick={sendMessage}>
-                                <span className='chat-sendbtntext'>Отправить</span>
-                                <FontAwesomeIcon className="chat-sendicon" style={{ width: 30, height: 30 }} icon={faCaretRight} />
-                            </button>
-                            {JSON.parse(localStorage.getItem("userData")).roleId == '2' && (<MyButton style={{width: 120, height: 45}}>Закрыть заявку</MyButton>)}
-                        </div>
-                        {photo && (
+                            <textarea className="chat-sendinput" onChange={(e) => setMsg(e.target.value)} value={msg} />
+                            {photo && (
                             <div className='chat-inputimage-wrap'>
                                 <img className='chat-inputimage' src={`data:image/png;base64,${photo}`} onError={(e) => {
                                     e.target.onerror = null;
                                     e.target.src = defaultImg;
                                 }} />
                             </div>
-                        )}
+                            )}
+                        <div style={{display: "flex", flexDirection: 'column', alignItems: 'center'}}>
+                            <button className="chat-sendbtn" onClick={sendMessage}>
+                                <span className='chat-sendbtntext'>Отправить</span>
+                                <FontAwesomeIcon className="chat-sendicon" style={{ width: 30, height: 30 }} icon={faCaretRight} />
+                            </button>
+                            {JSON.parse(localStorage.getItem("userData")).roleId == '2' && (
+                                <button className='chat-sendbtn' onClick={closeTask}>    
+                                    <span className='chat-sendbtntext'>Закрыть заявку</span>
+                                    <span className="chat-sendicon">X</span>
+                                </button>
+                            )}
+                        </div>
                     </div>
                 )}
                 {!auth.token && (
@@ -209,6 +249,11 @@ export const ChatPage = () => {
                 {auth.token && statusId == 4 && (
                     <div className="chat-content-row2" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <h2>Вопрос закрыт, отправка запрещена</h2>
+                    </div>
+                )}
+                {auth.token && statusId != 4 && !isHim && (
+                    <div className="chat-content-row2" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <h2>Сообщение может отправлять только привязанный к вопросу пользователь</h2>
                     </div>
                 )}
             </div>

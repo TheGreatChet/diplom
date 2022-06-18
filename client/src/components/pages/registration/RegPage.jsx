@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useHttp } from "../../../hooks/useHttp";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
+import validator from 'validator';
 
 export const RegPage = () => {
   const [login, setLogin] = useState("");
@@ -23,6 +24,10 @@ export const RegPage = () => {
     }
     if (!password) {
       toast.error("Заполните поле пароля");
+      return;
+    }
+    if (!validator.isEmail(login)) {
+      toast.error("Используйте верный формат почты: example@yandex.ru");
       return;
     }
     const create = await request("/api/accounts/reg", "POST", {   

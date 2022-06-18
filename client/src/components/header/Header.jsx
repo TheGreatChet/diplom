@@ -61,6 +61,9 @@ const Header = () => {
       if (error) toast.error(error)
       auth.login(data.token, data.roleId, data.accountId);
       navigate(PROFILE_ROUTE);
+      setLogin('')
+      setPassword('')
+      setIsLoginVisible(false)
     } catch (error) {}
   };
 
@@ -127,6 +130,7 @@ const Header = () => {
           />
           <MyInput
             id="password"
+            type='password'
             placeholder="Введите пароль..."
             style={{ width: 250, margin: 5 }}
             value={password}
