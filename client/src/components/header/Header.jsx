@@ -55,11 +55,14 @@ const Header = () => {
       }
       const data = await request("/api/accounts/login", "POST", {
         username: login,
-        password: password,
+        password: password
       });
-
-      auth.login(data.token, data.roleId);
+      if (error) toast.error(error)
+      auth.login(data.token, data.roleId, data.accountId);
       navigate(PROFILE_ROUTE);
+      setLogin('')
+      setPassword('')
+      setIsLoginVisible(false)
     } catch (error) {}
   };
 
@@ -100,6 +103,8 @@ const Header = () => {
         )}
         {(isNavVisible || !isSmallScreen) && auth.token && (
           <nav className="auth-btn-div">
+            <MyButton style={{width: 120}} onClick={() => navigate('/mytasks')}>Мои вопросы</MyButton>
+            <MyButton onClick={() => navigate('/profile')}>Профиль</MyButton>
             <MyButton onClick={() => auth.logout()}>Выйти</MyButton>
           </nav>
         )}
@@ -124,6 +129,7 @@ const Header = () => {
           />
           <MyInput
             id="password"
+            type='password'
             placeholder="Введите пароль..."
             style={{ width: 250, margin: 5 }}
             value={password}

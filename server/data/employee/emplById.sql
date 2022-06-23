@@ -4,4 +4,4 @@ SELECT [EmplId]
       ,[Patronymic]
       ,[AccountId]
 FROM [dbo].[Employee]
-WHERE [EmplId] = @emplId
+WHERE [AccountId] = @accountId

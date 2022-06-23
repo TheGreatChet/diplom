@@ -3,7 +3,6 @@ SELECT [AccountId]
       ,[Password]
       ,[RoleId]
       ,[RegistrationDate]
-      ,[Email]
       ,[ProfileImage]
 FROM [dbo].[Account]
 WHERE [AccountId] = @accountId

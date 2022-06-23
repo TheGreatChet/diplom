@@ -50,7 +50,7 @@ p {
 
 .auth-btn-div {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 150px 150px 33%;
   justify-self: flex-end;
   align-items: center;
   justify-content: right;
@@ -80,10 +80,12 @@ p {
 @media only screen and (max-width: 700px) {
   .header {
     height: 50px;
+    display: grid !important;
   }
 
   .header-vertical-center {
-    justify-content: left;
+    display: flex !important;
+    justify-items: left !important;
     margin-left: 20px;
   }
 
@@ -108,7 +110,7 @@ p {
   }
 
   .auth-btn-div {
-    grid-template-rows: 50% 50%;
+    grid-template-rows: 40px 40px 40px;
     grid-template-columns: none;
     align-items: center;
     width: 100%;
@@ -120,5 +122,21 @@ p {
 
   .btn-list-icon {
     display: inline;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .header {
+    display: flex;
+    margin-left: auto;
+  }
+  
+  .header-vertical-center {
+    display: none;
+  }
+  
+  .auth-btn-div {
+    margin: auto;
+    padding-right: 0;
   }
 }

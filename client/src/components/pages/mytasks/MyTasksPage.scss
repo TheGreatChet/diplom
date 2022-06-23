@@ -1,0 +1,45 @@
+.task-container {
+  display: grid;
+  grid-template-rows: 120px auto;
+  height: auto;
+  min-height: 700px;
+  grid-template-columns: 120px auto 120px;
+  background-color: var(--color-background);
+  padding-bottom: 40px;
+}
+
+.list-header {
+  background-color: white;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  display: flex;
+  width: auto;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-content {
+  grid-column-start: 2;
+  height: auto;
+}
+
+.empty {
+  position: absolute;
+  align-self: center;
+  justify-self: center;
+}
+
+.create-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (max-width: 700px) {
+  .task-container {
+  grid-template-columns: 40px auto 40px;
+
+  }
+}

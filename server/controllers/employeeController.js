@@ -1,4 +1,4 @@
-const emplData = require('../data/client');
+const emplData = require('../data/employee');
 
 const getEmpl = async (req, res, next) => {
     try {

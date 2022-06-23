@@ -9,6 +9,29 @@ const getTaskList = async (req, res, next) => {
     }
 }
 
+const addTaskList = async (req, res, next) => {
+    try {
+        const data = req.body;
+        const created = await listData.createList(data);
+        res.send(created);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const changeEmpl = async (req, res, next) => {
+    try {
+        const taskId = req.params.id;
+        const data = req.body;
+        const updated = await listData.changeEmpl(taskId, data);
+        res.send(updated);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
-    getTaskList
+    getTaskList,
+    addTaskList,
+    changeEmpl
 } 

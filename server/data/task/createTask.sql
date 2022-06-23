@@ -2,7 +2,7 @@ INSERT INTO [dbo].[Task] (
     [Title],
     [Descryption],
     [StatusId],
-    [CarId],
+    [Car],
     [TypeId],
     [Date]
 )
@@ -10,7 +10,9 @@ VALUES (
     @title,
     @descryption,
     @statusId,
-    @carId,
+    @car,
     @typeId,
     CURRENT_TIMESTAMP
 )
+
+SELECT MAX(TaskId) as 'TaskId' FROM [Task]

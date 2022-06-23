@@ -1,0 +1,1 @@
+SELECT MAX(Task.TaskId) as 'TaskId' FROM Task

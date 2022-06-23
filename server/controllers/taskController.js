@@ -9,6 +9,15 @@ const getTasks = async (req, res, next) => {
     }
 }
 
+const getLast = async (req, res, next) => {
+    try {
+        const tasks = await taskData.getLast();
+        res.send(tasks);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const getById = async (req, res, next) => {
     try {
         const taskId = req.params.id;
@@ -39,22 +48,32 @@ const addTask = async (req, res, next) => {
     }
 }
 
-const updateTask = async (req, res, next) => {
+const getByClient = async (req, res, next) => {
     try {
-        const taskId = req.params.id;
-        const data = req.body;
-        const updated = await taskData.updateAccount(taskId, data);
-        res.send(updated);
+        const clientId = req.params.id;
+        const tasks = await taskData.getByClient(clientId);
+        res.send(tasks);
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
 
-const deleteTask = async (req, res, next) => {
+const getByEmpl = async (req, res, next) => {
+    try {
+        const emplId = req.params.id;
+        const tasks = await taskData.getByEmpl(emplId);
+        res.send(tasks);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const changeStatus = async (req, res, next) => {
     try {
         const taskId = req.params.id;
-        const deleted = await taskData.updateAccount(taskId);
-        res.send(deleted);
+        const data = req.body;
+        const updated = await taskData.changeStatus(taskId, data);
+        res.send(updated);
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -64,7 +83,9 @@ module.exports = {
     getTasks,
     getById,
     addTask,
-    updateTask,
-    deleteTask,
-    getByDescr
+    getByDescr,
+    getByClient,
+    getLast,
+    getByEmpl,
+    changeStatus
 }

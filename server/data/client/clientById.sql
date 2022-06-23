@@ -4,4 +4,4 @@ SELECT [ClientId]
       ,[Patronymic]
       ,[AccountId]
 FROM [dbo].[Client]
-WHERE [ClientId] = @clientId
+WHERE [AccountId] = @accountId

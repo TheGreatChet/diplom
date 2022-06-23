@@ -6,6 +6,7 @@ const { config } = require('dotenv');
 const getClients = async () => {
     try {
         let pool = await sql.connect(cfg.sql);
+        console.log("a")
         const sqlQueries = await utils.loadSqlQueries('client')
         const list = await pool.request().query(sqlQueries.clientsList);
         return list.recordset;
@@ -14,11 +15,11 @@ const getClients = async () => {
     }
 }
 
-const getById = async (clientId) => {
+const getById = async (accountId) => {
     try {
         let pool = await sql.connect(cfg.sql);
         const sqlQueries = await utils.loadSqlQueries('client')
-        const client = await pool.request().input('clientId', sql.Int, clientId).query(sqlQueries.clientById);
+        const client = await pool.request().input('accountId', sql.Int, accountId).query(sqlQueries.clientById);
         return client.recordset;
     } catch (error) {
         return error.message;
