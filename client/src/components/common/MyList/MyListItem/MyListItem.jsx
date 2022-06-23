@@ -16,7 +16,6 @@ export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId
   const [curEmpl, setCurEmpl] = useState(emplId);
   const [modal, setModal] = useState(false)
 
-
   async function goToChat() {
     if (localStorage.getItem("userData") == null) {
       navigate("/chat", { state: { param: taskId, title: title, statusId, emplId, clientId } });
@@ -24,10 +23,14 @@ export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId
     }
 
     if ((JSON.parse(localStorage.getItem("userData")).roleId !== 0)) {
-      navigate("/chat", { state: { param: taskId, title: title, statusId } });
+      navigate("/chat", { state: { param: taskId, title: title, statusId, emplId, clientId } });
     } else {
       setModal(true)
     }
+  }
+
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   useEffect(() => {
@@ -60,21 +63,32 @@ export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId
                   if (curEmpl === 0) {
                     toast.error('Назначьте сотрудника')
                     return;
+                  } else {
+                    setCurStatus(e.target.value)
+                    await request("/api/tasks/changestatus/" + taskId, 'PUT', {
+                      statusId: '2'
+                    });
+                    toast.success('Статус изменён')
+                    upd()
+                    setModal(false)
                   }
                 } else if (e.target.value === '4') {
-                  const send = await request("/api/taskchat/sendmessage", "POST", {
+                  await request("/api/taskchat/sendmessage", "POST", {
                     text: 'Ваш вопрос получил статус "Отменён". Пожалуйста, введите нормальные данные и составьте новый вопрос.\nПростите за неудобства.',
                     taskId: taskId,
                     senderId: JSON.parse(localStorage.getItem("userData")).accountId
-                  });
+                  }).then(sleep(200)).then(async () => {
+                    await new Promise(async () => {
+                      setCurStatus(e.target.value)
+                      await request("/api/tasks/changestatus/" + taskId, 'PUT', {
+                        statusId: '4'
+                      });
+                      toast.success('Статус изменён')
+                      upd()
+                      setModal(false)
+                    });
+                  })
                 }
-                setCurStatus(e.target.value)
-                await request("/api/tasks/changestatus/" + taskId, 'PUT', {
-                  statusId: e.target.value
-                });
-                toast.success('Статус изменён')
-                upd()
-                setModal(false)
               }}>
                 {Array.from(statuses).map((status, index) => {
                   return (
@@ -119,5 +133,4 @@ export const MyListItem = ({ title, descr, time, taskId, statusId, stats, emplId
       </div>
     </div>
   );
-  // }
 };

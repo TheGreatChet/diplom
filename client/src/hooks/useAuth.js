@@ -34,6 +34,5 @@ export const useAuth = () => {
         }
     }, [login])
 
-
     return { login, logout, token, role, accountId }
 }

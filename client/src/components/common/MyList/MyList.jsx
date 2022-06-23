@@ -9,7 +9,6 @@ export const MyList = ({ items, upd }) => {
     return (
       <div className={classes.listContent}>
         {items.map((item, index) => {
-        console.log(item)
           return (
             <MyListItem
               key={index}

@@ -80,10 +80,12 @@ p {
 @media only screen and (max-width: 700px) {
   .header {
     height: 50px;
+    display: grid !important;
   }
 
   .header-vertical-center {
-    justify-content: left;
+    display: flex !important;
+    justify-items: left !important;
     margin-left: 20px;
   }
 
@@ -120,5 +122,21 @@ p {
 
   .btn-list-icon {
     display: inline;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .header {
+    display: flex;
+    margin-left: auto;
+  }
+  
+  .header-vertical-center {
+    display: none;
+  }
+  
+  .auth-btn-div {
+    margin: auto;
+    padding-right: 0;
   }
 }

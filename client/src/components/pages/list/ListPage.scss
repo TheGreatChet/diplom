@@ -9,6 +9,7 @@
   height: auto;
   grid-template-columns: 120px auto 120px;
   background-color: var(--color-background);
+  padding-bottom: 40px;
 }
 
 .list-sidebar {
@@ -20,7 +21,7 @@
 
 .list-search-input {
   width: auto;
-  min-width: 400px;
+  min-width: 200px;
   font-size: 0.8rem;
   border: 3px solid var(--color-primary);
   border-right: none;

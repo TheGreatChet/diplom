@@ -30,13 +30,15 @@
   align-items: center;
   justify-items: center;
   padding: 10px;
+  padding-bottom: 40px;
+  margin-top: 20px;
 }
 
 
 
 .message {
   border-radius: 5px;
-  background-color: var(--color-background);
+  background-color: rgb(221, 221, 221);
   border-width: 1px;
   display: flex;
   align-items: center;
@@ -158,10 +160,21 @@
 
   .message {
     min-width: inherit;
+    width: 90%;
+    margin: 10px;
+  }
+
+  h2 {
+font-size: 18px;
   }
 
   .chat-content-row2 {
     grid-template-columns: 60px auto 60px !important;
+    padding-bottom: 20px !important;
+
+    h3 {
+      font-size: 12px;
+    }
   }
 
   .chat-sendinput {
@@ -182,13 +195,8 @@
     height: 40px;
   }
 
-  .message {
-    width: 100%;
-    margin: 10px;
-  }
-
   h3 {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .chat-sendicon {

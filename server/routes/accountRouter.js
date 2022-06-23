@@ -7,7 +7,7 @@ const roleMiddleware = require('../middlewares/roleMiddleware')
 const {getAccounts, addAccount, updateAccount, getByLogin, getById, login} = accountController;
 const {addClient} = clientController
 
-router.get('/', roleMiddleware([1]), getAccounts)
+router.get('/', getAccounts)
 router.post('/reg', addAccount)
 router.get('/:id', getById)
 router.put('/:id', updateAccount)

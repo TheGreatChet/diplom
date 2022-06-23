@@ -23,7 +23,6 @@ export const ListPage = () => {
     if (parametr) setReq(parametr)
   }, [state, parametr, setReq, setParametr])
 
-  console.log(req)
   const { request } = useHttp();
   const navigate = useNavigate()
 

@@ -34,9 +34,9 @@ export const ProfilePage = () => {
     }
   }, []);
 
+
   const getAccountData = async () => {
     setLogin((await request("/api/accounts/" + id))[0]["Login"]);
-    setPassword((await request("/api/accounts/" + id))[0]["Password"]);
     setPhoto((await request("/api/accounts/" + id))[0]["ProfileImage"]);
   };
 
@@ -113,7 +113,6 @@ export const ProfilePage = () => {
       return;
     }
     if (!validator.isAlpha(name, ['ru-RU']) || !validator.isAlpha(surname, ['ru-RU']) || (patr && !validator.isAlpha(patr, ['ru-RU']))) {
-      console.log('a')
       toast.error("Используйте только кириллицу");
       return;
     }
@@ -184,7 +183,7 @@ export const ProfilePage = () => {
     );
   } else {
     return (
-      <div style={{ height: 600, display: "flex", justifyContent: "center" }}>
+      <div style={{ height: 700, display: "flex", justifyContent: "center" }}>
         <Loader />
       </div>
     );

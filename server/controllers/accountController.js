@@ -2,6 +2,7 @@ const accountData = require('../data/account');
 const clientData = require('../data/client');
 const jwt = require('jsonwebtoken')
 const {SECRET} = process.env;
+const bcrypt = require('bcryptjs')
 
 const getAccounts = async (req, res, next) => {
     try {
@@ -22,9 +23,10 @@ const getById = async (req, res, next) => {
     }
 }
 
-const getByLogin = async (req, res, next) => {
+const getByLogin = async (req, res, next) => {  
     try {
         const login = req.params.login;
+        
         const account = await accountData.getByLogin(login);
         res.send(account);
     } catch (error) {
@@ -35,7 +37,8 @@ const getByLogin = async (req, res, next) => {
 const addAccount = async (req, res, next) => {
     try {
         const data = req.body;
-        const created = await accountData.createAccount(data);
+        const hashpassword = bcrypt.hashSync(req.body.password, 4);
+        const created = await accountData.createAccount({login: req.body.login, password: hashpassword, roleId: 1});
         res.send(created);
     } catch (error) {
         res.status(400).send(error.message);
@@ -46,7 +49,8 @@ const updateAccount = async (req, res, next) => {
     try {
         const accountId = req.params.id;
         const data = req.body;
-        const updated = await accountData.updateAccount(accountId, data);
+        const hashpassword = bcrypt.hashSync(data.password, 4);
+        const updated = await accountData.updateAccount(accountId, {login: data.login, password: hashpassword, roleId: data.roleId, profileImage: data.photo});
         res.send(updated);
     } catch (error) {
         res.status(400).send(error.message);
@@ -68,7 +72,8 @@ const login = async (req, res) => {
         if (!user[0]) {
             return res.status(400).json({message: 'Пользователь с таким логином не найден'})
         }
-        if (user[0]['Password'] != password) {
+        const validpassword = bcrypt.compareSync(password, user[0]['Password'])
+        if (!validpassword) {
             return res.status(400).json({message: 'Неправильный пароль'})
         }
         

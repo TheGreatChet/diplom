@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require('../middlewares/authMiddleware');
 const router = express.Router();
 const accountRouter = require('./accountRouter')
 const chatRouter = require('./chatRouter')
@@ -14,9 +15,9 @@ router.use('/accounts', accountRouter.router)
 router.use('/taskchat', chatRouter.router)
 router.use('/clients', clientRouter.router)
 router.use('/employee', employeeRouter.router)
-router.use('/tasklist', listRouter.router)
+router.use('/tasklist', authMiddleware, listRouter.router)
 router.use('/status', statusRouter.router)
 router.use('/tasks', taskRouter.router)
-router.use('/type', typeRouter.router)
+router.use('/type', authMiddleware, typeRouter.router)
 
 module.exports = router

@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import { useEffect } from "react";
+import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
@@ -8,15 +10,24 @@ import { MyInput } from "../../common/MyInput/MyInput";
 
 export const RegUserPage = () => {
   const {state} = useLocation();
-  const { param } = state;
-  console.log(param);
+  const navigate = useNavigate();
+  const [parametr, setParametr] = useState('')
+
+  useEffect(() => {
+    if (state) {
+      const { param } = state;
+      setParametr(param)
+    } else {
+      navigate('/')
+    }
+  }, [state, parametr, setParametr])
+  
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [patr, setPatr] = useState("");
   
   const { error, request, clearError } = useHttp();
   const auth = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const reg = async () => {
     if (!name) {
@@ -31,7 +42,7 @@ export const RegUserPage = () => {
       name: name,
       surname: surname,
       patronymic: patr,
-      accountId: param,
+      accountId: parametr,
     }).then(
     await new Promise(() => toast.info("Регистрация прошла успешно. \n Авторизуйтесь для продолжения работы")).then(
     await new Promise(() => navigate('/'))));

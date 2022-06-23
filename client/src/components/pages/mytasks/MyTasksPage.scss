@@ -2,9 +2,10 @@
   display: grid;
   grid-template-rows: 120px auto;
   height: auto;
-  min-height: 600px;
+  min-height: 700px;
   grid-template-columns: 120px auto 120px;
   background-color: var(--color-background);
+  padding-bottom: 40px;
 }
 
 .list-header {
